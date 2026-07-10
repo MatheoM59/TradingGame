@@ -1,3 +1,5 @@
+import { useRouter } from 'next/navigation';
+
 export const SignUpForm = ({
   onToggle,
   email,
@@ -5,6 +7,7 @@ export const SignUpForm = ({
   userName,
   setUserName,
 }) => {
+  const router = useRouter();
   const handleSubmit = async () => {
     try {
       const response = await fetch('/api/users', {
@@ -15,7 +18,9 @@ export const SignUpForm = ({
       const data = await response.json();
       if (response.ok) {
         localStorage.setItem('userId', data.id);
-        localStorage.setItem('Email', data.email);
+        localStorage.setItem('email', data.email);
+        localStorage.setItem('userName', data.username);
+        router.push('/game');
       } else {
         console.error('Erreur' + data.error);
       }

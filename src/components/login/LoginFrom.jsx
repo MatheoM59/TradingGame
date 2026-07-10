@@ -1,4 +1,7 @@
+import { useRouter } from 'next/navigation';
+
 export const LoginForm = ({ onToggle, email, setEmail }) => {
+  const router = useRouter();
   const handleSubmit = async () => {
     try {
       const response = await fetch('/api/login/', {
@@ -6,11 +9,14 @@ export const LoginForm = ({ onToggle, email, setEmail }) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email }),
       });
+
       const data = await response.json();
+
       if (response.ok) {
         localStorage.setItem('userId', data.id);
-        localStorage.setItem('Email', data.email);
-        console.log('User trouvé ' + data.email);
+        localStorage.setItem('email', data.email);
+        localStorage.setItem('userName', data.username);
+        router.push('/game');
       } else {
         console.error('Erreur' + data.error);
       }

@@ -14,7 +14,10 @@ export async function POST(request) {
     }
     const user =
       await sql`INSERT INTO users (email, username, balance, total_earnings, created_at, updated_at) VALUES (${email}, ${userName}, 0, 0, NOW(), NOW()) RETURNING *`;
-    return Response.json(user[0], { status: 201 });
+    return Response.json(
+      { id: user[0].id, email: user[0].email, username: user[0].username },
+      { status: 201 }
+    );
   } catch (error) {
     console.log(error);
     return Response.json(
