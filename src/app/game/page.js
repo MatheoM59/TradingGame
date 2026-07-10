@@ -2,7 +2,7 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { SideBar } from '@/components/game/SideBar';
+import { SideBar } from '@/components/game/sideBar/SideBar';
 import { Clicker } from '@/components/game/clicker/Clicker';
 import { Info } from '@/components/game/info/Info';
 import styles from './game.module.css';

@@ -1,10 +1,11 @@
+import styles from './sideBar.module.css';
 export const SideBar = () => {
   const sections = ['Investing', 'Buisiness', 'Clicker', 'Items'];
   return (
-    <div>
+    <div className={styles.container}>
       {sections.map((section, id = index) => (
         <div key={id}>
-          <p>{section}</p>
+          <button>{section}</button>
         </div>
       ))}
     </div>

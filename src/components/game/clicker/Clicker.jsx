@@ -21,7 +21,7 @@ export const Clicker = ({
     <div className={styles.container}>
       <h1>$ {balance.toFixed(2)} </h1>
       <button onClick={handleClick}>Earn Money !!</button> <hr />
-      <button onClick={handleClick2}>Lose Moeny !!</button>
+      <button onClick={handleClick2}>Lose Money !!</button>
     </div>
   );
 };

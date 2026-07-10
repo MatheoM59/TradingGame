@@ -1,7 +1,50 @@
 .container {
-  width: 100%;
-  outline: solid 1px green;
+  flex: 0.5;
+  max-width: 400px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  gap: 20px;
+  padding: 30px;
+  background: #1a1f2e;
+  border: 1px solid #2a3a4a;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.container > div {
+  padding: 20px;
+  background: #141922;
+  border-left: 3px solid #0066cc;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.container h2 {
+  font-size: 1.5rem;
+  color: #4da6ff;
+  margin: 0 0 15px 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.container h3 {
+  margin: 10px 0;
+  color: #b0b8c8;
+  font-size: 1.1rem;
+}
+
+.container h3 span {
+  color: #66ff66;
+  font-weight: bold;
+}
+
+.container p {
+  margin: 10px 0;
+  color: #ffffff;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.container p span {
+  color: #ffa500;
 }
