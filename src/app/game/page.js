@@ -6,6 +6,7 @@ import { SideBar } from '@/components/game/sideBar/SideBar';
 import { Clicker } from '@/components/game/clicker/Clicker';
 import { Info } from '@/components/game/info/Info';
 import styles from './game.module.css';
+import { Investing } from '@/components/game/investing/Investing';
 
 export default function Game() {
   const router = useRouter();
@@ -73,9 +74,19 @@ export default function Game() {
 
   return (
     <div className={styles.container}>
-      <SideBar />
+      <SideBar where={where} setWhere={setWhere} />
       {where === 'Clicker' && (
         <Clicker
+          balance={balance}
+          setBalance={setBalance}
+          totalEarnings={totalEarnings}
+          setTotalEarnings={setTotalEarnings}
+          totalExpense={totalExpense}
+          setTotalExpense={setTotalExpense}
+        />
+      )}
+      {where === 'Investing' && (
+        <Investing
           balance={balance}
           setBalance={setBalance}
           totalEarnings={totalEarnings}
