@@ -9,10 +9,12 @@ export const Items = ({ setBalance, setTotalExpense }) => {
 
   useEffect(() => {
     const handleGetItems = async () => {
+      const user_id = localStorage.getItem("userId");
       try {
         const response = await fetch("/api/items/", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ user_id }),
         });
 
         const data = await response.json();
@@ -43,10 +45,11 @@ export const Items = ({ setBalance, setTotalExpense }) => {
       if (response.ok) {
         setBalance(Number(data.balance));
         setTotalExpense(Number(data.total_expense));
-        setFeedBack({ message: data.message, ok: response.ok });
-      } else {
-        setFeedBack({ message: data.message, ok: response.ok });
+        setItems(
+          items.map((i) => (i.id === item.id ? { ...i, owned: true } : i)),
+        );
       }
+      setFeedBack({ message: data.message, ok: response.ok });
     } catch (error) {
       setFeedBack({ message: "Server Error !", ok: false });
       console.error(error);
@@ -72,9 +75,22 @@ export const Items = ({ setBalance, setTotalExpense }) => {
               />
             </div>
           </div>
-          <div className={styles.itemBuy}>
-            <button onClick={() => handleBuy(item)}>Buy</button>
-          </div>
+          {item.owned === true && (
+            <div className={styles.itemOwned}>
+              <button
+                onClick={() =>
+                  setFeedBack({ message: "Item already owned", ok: false })
+                }
+              >
+                Already Owned
+              </button>
+            </div>
+          )}
+          {item.owned === false && (
+            <div className={styles.itemBuy}>
+              <button onClick={() => handleBuy(item)}>Buy</button>
+            </div>
+          )}
         </div>
       ))}
       {feedBack && <PopUp feedBack={feedBack} setFeedBack={setFeedBack} />}

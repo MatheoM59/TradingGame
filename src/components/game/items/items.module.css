@@ -137,11 +137,26 @@
   flex-direction: column;
   align-items: center;
 }
+.itemOwned {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .itemBuy button {
   width: 100%;
   border-radius: 25px;
   background-color: #0066cc;
   color: #ffa500;
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+.itemOwned button {
+  width: 100%;
+  border-radius: 25px;
+  background-color: #3b3c3d;
+  color: #ffffff;
   font-size: 1.3rem;
   font-weight: bold;
 }
