@@ -1,34 +1,35 @@
-'use client';
-import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import { SideBar } from '@/components/game/sideBar/SideBar';
-import { Clicker } from '@/components/game/clicker/Clicker';
-import { Info } from '@/components/game/info/Info';
-import styles from './game.module.css';
-import { Investing } from '@/components/game/investing/Investing';
+"use client";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { SideBar } from "@/components/game/sideBar/SideBar";
+import { Clicker } from "@/components/game/clicker/Clicker";
+import { Info } from "@/components/game/info/Info";
+import styles from "./game.module.css";
+import { Investing } from "@/components/game/investing/Investing";
+import { Items } from "@/components/game/items/Items";
 
 export default function Game() {
   const router = useRouter();
-  const [where, setWhere] = useState('Clicker');
+  const [where, setWhere] = useState("Clicker");
   const [userData, setUserData] = useState(null);
   const [balance, setBalance] = useState(0);
   const [totalEarnings, setTotalEarnings] = useState(0);
   const [totalExpense, setTotalExpense] = useState(0);
   useEffect(() => {
-    const userId = localStorage.getItem('userId');
+    const userId = localStorage.getItem("userId");
     if (!userId) {
-      router.push('/');
+      router.push("/");
     }
   }, [router]);
 
   useEffect(() => {
     const fetchUserData = async () => {
-      const id = localStorage.getItem('userId');
+      const id = localStorage.getItem("userId");
       try {
-        const response = await fetch('/api/info/', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+        const response = await fetch("/api/info/", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ id }),
         });
         const data = await response.json();
@@ -37,7 +38,7 @@ export default function Game() {
         setTotalExpense(Number(data.total_expense));
         setBalance(Number(data.balance));
       } catch (error) {
-        console.error('Error' + error);
+        console.error("Error" + error);
       }
     };
     fetchUserData();
@@ -45,11 +46,11 @@ export default function Game() {
 
   useEffect(() => {
     const saveDataBase = async () => {
-      const userId = localStorage.getItem('userId');
+      const userId = localStorage.getItem("userId");
       try {
-        const response = await fetch('/api/balance', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+        const response = await fetch("/api/balance", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             id: userId,
             balance,
@@ -57,12 +58,11 @@ export default function Game() {
             total_expense: totalExpense,
           }),
         });
-        const data = await response.json();
         if (response.ok) {
-          console.log('Updated');
+          console.log("Updated");
         }
       } catch (error) {
-        console.error('Fetch error:', error);
+        console.error("Fetch error:", error);
       }
     };
 
@@ -74,8 +74,8 @@ export default function Game() {
 
   return (
     <div className={styles.container}>
-      <SideBar where={where} setWhere={setWhere} />
-      {where === 'Clicker' && (
+      <SideBar setWhere={setWhere} />
+      {where === "Clicker" && (
         <Clicker
           balance={balance}
           setBalance={setBalance}
@@ -85,7 +85,7 @@ export default function Game() {
           setTotalExpense={setTotalExpense}
         />
       )}
-      {where === 'Investing' && (
+      {where === "Investing" && (
         <Investing
           balance={balance}
           setBalance={setBalance}
@@ -94,6 +94,17 @@ export default function Game() {
           totalExpense={totalExpense}
           setTotalExpense={setTotalExpense}
         />
+      )}
+      {where === "Items" && (
+        <div>
+          <Items
+            balance={balance}
+            setBalance={setBalance}
+            totalEarnings={totalEarnings}
+            totalExpense={totalExpense}
+            setTotalExpense={setTotalExpense}
+          />
+        </div>
       )}
       <Info
         userData={userData}

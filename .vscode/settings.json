@@ -1,0 +1,13 @@
+{
+  // Prettier gère la mise en forme, ESLint gère la qualité du code.
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+
+  // À la sauvegarde, ESLint corrige automatiquement ce qu'il peut.
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+
+  // S'assurer qu'ESLint surveille bien les fichiers JS/JSX.
+  "eslint.validate": ["javascript", "javascriptreact"]
+}

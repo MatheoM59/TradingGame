@@ -1,14 +1,14 @@
-import styles from './sideBar.module.css';
-export const SideBar = ({ where, setWhere }) => {
-  const sections = ['Investing', 'Buisiness', 'Clicker', 'Items'];
+import styles from "./sideBar.module.css";
+
+export const SideBar = ({ setWhere }) => {
+  const sections = ["Investing", "Buisiness", "Clicker", "Items"];
   const handleCLick = (item) => {
     setWhere(item);
   };
-  console.log(where);
   return (
     <div className={styles.container}>
-      {sections.map((section, id = index) => (
-        <div key={id}>
+      {sections.map((section, index) => (
+        <div key={index}>
           <button onClick={() => handleCLick(section)}>{section}</button>
         </div>
       ))}
