@@ -18,7 +18,7 @@ export const LoginForm = ({ onToggle, email, setEmail }) => {
         localStorage.setItem('userName', data.username);
         router.push('/game');
       } else {
-        console.error('Erreur' + data.error);
+        console.error('Erreur' + data.message);
       }
     } catch (error) {
       console.error('Networ Error' + error);

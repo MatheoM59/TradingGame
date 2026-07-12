@@ -4,7 +4,7 @@ export async function POST(request) {
   try {
     const { email } = await request.json();
     if (!email) {
-      return Response.json({ error: 'Email requis' }, { status: 400 });
+      return Response.json({ message: 'Email requis' }, { status: 400 });
     }
     const user = await sql`SELECT * FROM users WHERE email = ${email}`;
     return Response.json(
@@ -13,6 +13,6 @@ export async function POST(request) {
     );
   } catch (error) {
     console.error(error);
-    return Response.json({ error: 'Unauthorized' }, { status: 401 });
+    return Response.json({ message: 'Unauthorized' }, { status: 401 });
   }
 }

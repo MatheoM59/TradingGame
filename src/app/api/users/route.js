@@ -6,7 +6,7 @@ export async function POST(request) {
 
     if (!email || !userName) {
       return Response.json(
-        { error: 'Email et Username requis' },
+        { message: 'Email et Username requis' },
         {
           status: 400,
         }
@@ -21,7 +21,7 @@ export async function POST(request) {
   } catch (error) {
     console.log(error);
     return Response.json(
-      { error: 'Erreur lors de la création' },
+      { message: 'Erreur lors de la création' },
       { status: 500 }
     );
   }

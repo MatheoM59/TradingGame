@@ -22,7 +22,7 @@ export const Items = ({
         if (response.ok) {
           console.log("Items fetched successfully:", data);
         } else {
-          console.error("Error fetching items:", data.error);
+          console.error("Error fetching items:", data.message);
         }
       } catch (error) {
         console.error("Network Error while fetching items:", error);

@@ -17,6 +17,6 @@ export async function POST() {
     );
   } catch (error) {
     console.error(error);
-    return Response.json({ error: "Not found" }, { status: 401 });
+    return Response.json({ message: "Not found" }, { status: 401 });
   }
 }

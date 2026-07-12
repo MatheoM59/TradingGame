@@ -4,7 +4,7 @@ export async function POST(request) {
     const { id, balance, total_earnings, total_expense } = await request.json();
 
     if (!balance || isNaN(balance)) {
-      return Response.json({ error: 'Balance invalide' }, { status: 400 });
+      return Response.json({ message: 'Balance invalide' }, { status: 400 });
     }
     const NewBalance =
       await sql`UPDATE users SET balance = ${balance}, total_earnings = ${total_earnings}, total_expense=${total_expense} WHERE id = ${id} RETURNING *`;
@@ -14,6 +14,6 @@ export async function POST(request) {
     );
   } catch (error) {
     console.log(error);
-    return Response.json({ error: "Erreur lors de l'update" }, { status: 500 });
+    return Response.json({ message: "Erreur lors de l'update" }, { status: 500 });
   }
 }
