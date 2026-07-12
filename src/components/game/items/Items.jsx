@@ -1,14 +1,12 @@
 import styles from "./items.module.css";
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { PopUp } from "./popUp/Popup";
 
-export const Items = ({
-  balance,
-  setBalance,
-  totalExpense,
-  setTotalExpense,
-}) => {
+export const Items = ({ setBalance, setTotalExpense }) => {
   const [items, setItems] = useState([]);
+  const [feedBack, setFeedBack] = useState(null);
+
   useEffect(() => {
     const handleGetItems = async () => {
       try {
@@ -18,8 +16,8 @@ export const Items = ({
         });
 
         const data = await response.json();
-        setItems(data.data);
         if (response.ok) {
+          setItems(data.data);
           console.log("Items fetched successfully:", data);
         } else {
           console.error("Error fetching items:", data.message);
@@ -30,13 +28,33 @@ export const Items = ({
     };
     handleGetItems();
   }, []);
-  const handleBuy = (item) => {
-    setBalance(balance - item.price);
-    setTotalExpense(totalExpense + item.price);
+  const handleBuy = async (item) => {
+    const itemId = item.id;
+    const userId = localStorage.getItem("userId");
+
+    try {
+      const response = await fetch("/api/items/buy", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ itemId, userId }),
+      });
+      const data = await response.json();
+      console.log(data);
+      if (response.ok) {
+        setBalance(Number(data.balance));
+        setTotalExpense(Number(data.total_expense));
+        setFeedBack({ message: data.message, ok: response.ok });
+      } else {
+        setFeedBack({ message: data.message, ok: response.ok });
+      }
+    } catch (error) {
+      setFeedBack({ message: "Server Error !", ok: false });
+      console.error(error);
+    }
   };
   return (
     <div className={styles.container}>
-      <h1>Helllo World !</h1>
+      <h1>Items</h1>
       {items.map((item) => (
         <div key={item.id} className={styles.itemCard}>
           <div className={styles.item}>
@@ -59,6 +77,7 @@ export const Items = ({
           </div>
         </div>
       ))}
+      {feedBack && <PopUp feedBack={feedBack} setFeedBack={setFeedBack} />}
     </div>
   );
 };
