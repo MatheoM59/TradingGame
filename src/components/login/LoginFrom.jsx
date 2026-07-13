@@ -19,6 +19,7 @@ export const LoginForm = ({
       const data = await response.json();
 
       if (response.ok) {
+        console.log("done");
         router.push("/game");
       } else {
         console.error("Erreur" + data.message);

@@ -11,6 +11,7 @@ import { Items } from "@/components/game/items/Items";
 export default function Game() {
   const [where, setWhere] = useState("Clicker");
   const [userData, setUserData] = useState(null);
+  const [username, setUsername] = useState();
   const [balance, setBalance] = useState(0);
   const [totalEarnings, setTotalEarnings] = useState(0);
   const [totalExpense, setTotalExpense] = useState(0);
@@ -23,6 +24,7 @@ export default function Game() {
         });
         const data = await response.json();
         setUserData(data);
+        setUsername(data.username);
         setTotalEarnings(Number(data.total_earnings));
         setTotalExpense(Number(data.total_expense));
         setBalance(Number(data.balance));
@@ -95,6 +97,7 @@ export default function Game() {
       )}
       <Info
         userData={userData}
+        username={username}
         balance={balance}
         totalEarnings={totalEarnings}
         totalExpense={totalExpense}

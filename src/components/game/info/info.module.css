@@ -48,3 +48,15 @@
 .container p span {
   color: #ffa500;
 }
+.namelogout {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20%;
+}
+.namelogout h2 {
+  margin-bottom: 0;
+}
+.namelogout button {
+  color: red;
+}

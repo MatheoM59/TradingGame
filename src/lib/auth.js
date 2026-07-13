@@ -18,6 +18,11 @@ export const createSession = async (userId) => {
   });
 };
 
+export const deleteSession = async () => {
+  const cookieStore = await cookies();
+  cookieStore.delete("session");
+};
+
 export const getUserId = async () => {
   const cookieStore = await cookies();
   const token = cookieStore.get("session")?.value;
