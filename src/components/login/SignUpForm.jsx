@@ -1,4 +1,4 @@
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 
 export const SignUpForm = ({
   onToggle,
@@ -6,26 +6,29 @@ export const SignUpForm = ({
   setEmail,
   userName,
   setUserName,
+  passWord,
+  setPassWord,
 }) => {
   const router = useRouter();
+
   const handleSubmit = async () => {
     try {
-      const response = await fetch('/api/users', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, userName }),
+      const response = await fetch("/api/users", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, userName, passWord }),
       });
       const data = await response.json();
       if (response.ok) {
-        localStorage.setItem('userId', data.id);
-        localStorage.setItem('email', data.email);
-        localStorage.setItem('userName', data.username);
-        router.push('/game');
+        localStorage.setItem("userId", data.id);
+        localStorage.setItem("email", data.email);
+        localStorage.setItem("userName", data.username);
+        router.push("/game");
       } else {
-        console.error('Erreur' + data.message);
+        console.error("Erreur" + data.message);
       }
     } catch (error) {
-      console.error('Networ Error' + error);
+      console.error("Networ Error" + error);
     }
   };
   return (
@@ -49,6 +52,16 @@ export const SignUpForm = ({
           className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           value={userName}
           onChange={(e) => setUserName(e.target.value)}
+        />
+      </div>
+      <div>
+        <label className="block text-sm font-medium mb-2">Pass Word</label>
+        <input
+          type="password"
+          placeholder="Pass Word"
+          className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          value={passWord}
+          onChange={(e) => setPassWord(e.target.value)}
         />
       </div>
       <button

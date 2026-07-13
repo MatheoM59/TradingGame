@@ -1,12 +1,10 @@
 import { sql } from "@/lib/db";
-import { cookies } from "next/headers";
+import { createSession } from "@/lib/auth";
 import bcrypt from "bcryptjs";
-import { SignJWT } from "jose";
 
 export async function POST(request) {
   try {
     const { email, password } = await request.json();
-    const secret = new TextEncoder().encode(process.env.AUTH_SECRET);
     if (!email || !password) {
       return Response.json(
         { message: "Email and password required !" },
@@ -30,19 +28,7 @@ export async function POST(request) {
       );
     }
 
-    const token = await new SignJWT({ userId: user[0].id })
-      .setProtectedHeader({ alg: "HS256" })
-      .setExpirationTime("7d")
-      .sign(secret);
-
-    const cookieStore = await cookies();
-    cookieStore.set("session", token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "lax",
-      path: "/",
-      maxAge: 60 * 60 * 24 * 7,
-    });
+    createSession(user[0].id);
 
     return Response.json(
       {

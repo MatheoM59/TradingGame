@@ -1,27 +1,33 @@
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 
-export const LoginForm = ({ onToggle, email, setEmail }) => {
+export const LoginForm = ({
+  onToggle,
+  email,
+  setEmail,
+  password,
+  setPassWord,
+}) => {
   const router = useRouter();
   const handleSubmit = async () => {
     try {
-      const response = await fetch('/api/login/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
+      const response = await fetch("/api/login/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
       });
 
       const data = await response.json();
 
       if (response.ok) {
-        localStorage.setItem('userId', data.id);
-        localStorage.setItem('email', data.email);
-        localStorage.setItem('userName', data.username);
-        router.push('/game');
+        localStorage.setItem("userId", data.id);
+        localStorage.setItem("email", data.email);
+        localStorage.setItem("userName", data.username);
+        router.push("/game");
       } else {
-        console.error('Erreur' + data.message);
+        console.error("Erreur" + data.message);
       }
     } catch (error) {
-      console.error('Networ Error' + error);
+      console.error("Networ Error" + error);
     }
   };
   return (
@@ -33,8 +39,18 @@ export const LoginForm = ({ onToggle, email, setEmail }) => {
           type="email"
           placeholder="your@email.com"
           className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          value={email}
+          value={email.trim().toLowerCase()}
           onChange={(e) => setEmail(e.target.value)}
+        />
+      </div>
+      <div>
+        <label className="block text-sm font-medium mb-2">Pass Word</label>
+        <input
+          type="password"
+          placeholder="🔒 Password"
+          className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          value={password}
+          onChange={(e) => setPassWord(e.target.value)}
         />
       </div>
       <button
