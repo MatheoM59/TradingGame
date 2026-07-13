@@ -1,6 +1,5 @@
 "use client";
 import { useEffect } from "react";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { SideBar } from "@/components/game/sideBar/SideBar";
 import { Clicker } from "@/components/game/clicker/Clicker";
@@ -10,18 +9,11 @@ import { Investing } from "@/components/game/investing/Investing";
 import { Items } from "@/components/game/items/Items";
 
 export default function Game() {
-  const router = useRouter();
   const [where, setWhere] = useState("Clicker");
   const [userData, setUserData] = useState(null);
   const [balance, setBalance] = useState(0);
   const [totalEarnings, setTotalEarnings] = useState(0);
   const [totalExpense, setTotalExpense] = useState(0);
-  useEffect(() => {
-    const userId = localStorage.getItem("userId");
-    if (!userId) {
-      router.push("/");
-    }
-  }, [router]);
 
   useEffect(() => {
     const fetchUserData = async () => {

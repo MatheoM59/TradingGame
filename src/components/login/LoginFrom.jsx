@@ -19,7 +19,6 @@ export const LoginForm = ({
       const data = await response.json();
 
       if (response.ok) {
-        localStorage.setItem("userId", data.id);
         router.push("/game");
       } else {
         console.error("Erreur" + data.message);

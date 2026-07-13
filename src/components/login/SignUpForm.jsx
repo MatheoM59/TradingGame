@@ -20,7 +20,6 @@ export const SignUpForm = ({
       });
       const data = await response.json();
       if (response.ok) {
-        localStorage.setItem("userId", data.id);
         router.push("/game");
       } else {
         console.error("Erreur" + data.message);

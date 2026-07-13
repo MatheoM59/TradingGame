@@ -1,15 +1,6 @@
-'use client';
-import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
-import { Login } from '@/components/login/Login';
+"use client";
+import { Login } from "@/components/login/Login";
 export default function Home() {
-  const router = useRouter();
-  useEffect(() => {
-    const userId = localStorage.getItem('userId');
-    if (userId) {
-      router.push('/game');
-    }
-  }, [router]);
   return (
     <div>
       <Login />
