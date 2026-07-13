@@ -9,12 +9,9 @@ export const Items = ({ setBalance, setTotalExpense }) => {
 
   useEffect(() => {
     const handleGetItems = async () => {
-      const user_id = localStorage.getItem("userId");
       try {
         const response = await fetch("/api/items/", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ user_id }),
         });
 
         const data = await response.json();
@@ -32,13 +29,12 @@ export const Items = ({ setBalance, setTotalExpense }) => {
   }, []);
   const handleBuy = async (item) => {
     const itemId = item.id;
-    const userId = localStorage.getItem("userId");
 
     try {
       const response = await fetch("/api/items/buy", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ itemId, userId }),
+        body: JSON.stringify({ itemId }),
       });
       const data = await response.json();
       console.log(data);

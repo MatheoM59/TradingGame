@@ -1,8 +1,9 @@
+import { getUserId } from "@/lib/auth";
 import { sql } from "@/lib/db";
 
-export async function POST(request) {
+export async function POST() {
   try {
-    const { user_id } = await request.json();
+    const user_id = await getUserId();
     if (!user_id) {
       console.error("User id required");
       return Response.json({ message: "User Id required" }, { status: 400 });

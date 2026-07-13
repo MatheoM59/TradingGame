@@ -25,12 +25,9 @@ export default function Game() {
 
   useEffect(() => {
     const fetchUserData = async () => {
-      const id = localStorage.getItem("userId");
       try {
         const response = await fetch("/api/info/", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ id }),
         });
         const data = await response.json();
         setUserData(data);
@@ -46,13 +43,11 @@ export default function Game() {
 
   useEffect(() => {
     const saveDataBase = async () => {
-      const userId = localStorage.getItem("userId");
       try {
         const response = await fetch("/api/balance", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            id: userId,
             balance,
             total_earnings: totalEarnings,
             total_expense: totalExpense,

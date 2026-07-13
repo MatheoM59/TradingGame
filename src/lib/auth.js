@@ -1,9 +1,10 @@
 import { SignJWT } from "jose";
 import { cookies } from "next/headers";
+import { jwtVerify } from "jose";
+const secret = new TextEncoder().encode(process.env.AUTH_SECRET);
 
-export const createSession = async (user) => {
-  const secret = new TextEncoder().encode(process.env.AUTH_SECRET);
-  const token = await new SignJWT({ userId: user })
+export const createSession = async (userId) => {
+  const token = await new SignJWT({ userId: userId })
     .setProtectedHeader({ alg: "HS256" })
     .setExpirationTime("7d")
     .sign(secret);
@@ -15,4 +16,17 @@ export const createSession = async (user) => {
     path: "/",
     maxAge: 60 * 60 * 24 * 7,
   });
+};
+
+export const getUserId = async () => {
+  const cookieStore = await cookies();
+  const token = cookieStore.get("session")?.value;
+  if (!token) return null;
+  try {
+    const { payload } = await jwtVerify(token, secret);
+    return payload.userId;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
 };

@@ -20,8 +20,6 @@ export const LoginForm = ({
 
       if (response.ok) {
         localStorage.setItem("userId", data.id);
-        localStorage.setItem("email", data.email);
-        localStorage.setItem("userName", data.username);
         router.push("/game");
       } else {
         console.error("Erreur" + data.message);

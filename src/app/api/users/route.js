@@ -24,7 +24,7 @@ export async function POST(request) {
     const password_hash = await bcrypt.hash(passWord, 10);
     const user =
       await sql`INSERT INTO users (email, username, password_hash, balance, total_earnings, total_expense, created_at, updated_at) VALUES (${email.trim().toLowerCase()}, ${userName.trim().toLowerCase()}, ${password_hash}, 0, 0.00, 0.00, NOW(), NOW()) RETURNING *`;
-    createSession(user[0].id);
+    await createSession(user[0].id);
     return Response.json(
       {
         message: "Connected",

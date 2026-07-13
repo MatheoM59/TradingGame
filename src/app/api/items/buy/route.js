@@ -1,8 +1,10 @@
+import { getUserId } from "@/lib/auth";
 import { sql } from "@/lib/db";
 
 export async function POST(request) {
   try {
-    const { itemId, userId } = await request.json();
+    const userId = await getUserId();
+    const { itemId } = await request.json();
     if (!itemId || !userId) {
       console.error("Item id et user id requis");
       return Response.json(

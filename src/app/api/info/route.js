@@ -1,23 +1,23 @@
-import { sql } from '@/lib/db';
-
-export async function POST(request) {
+import { sql } from "@/lib/db";
+import { getUserId } from "@/lib/auth";
+export async function POST() {
   try {
-    const { id } = await request.json();
-    if (!id) {
-      return Response.json({ message: 'UserId requis' }, { status: 400 });
+    const userId = await getUserId();
+    if (!userId) {
+      return Response.json({ message: "Unauthorized" }, { status: 400 });
     }
     const info =
-      await sql`SELECT balance, total_earnings, total_expense FROM users WHERE id = ${id}`;
+      await sql`SELECT balance, total_earnings, total_expense FROM users WHERE id = ${userId}`;
     return Response.json(
       {
         balance: info[0].balance,
         total_earnings: info[0].total_earnings,
         total_expense: info[0].total_expense,
       },
-      { status: 201 }
+      { status: 201 },
     );
   } catch (error) {
     console.error(error);
-    return Response.json({ message: 'Not found' }, { status: 401 });
+    return Response.json({ message: "Not found" }, { status: 401 });
   }
 }

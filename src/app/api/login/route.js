@@ -28,7 +28,7 @@ export async function POST(request) {
       );
     }
 
-    createSession(user[0].id);
+    await createSession(user[0].id);
 
     return Response.json(
       {
