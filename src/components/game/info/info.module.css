@@ -53,10 +53,12 @@
   flex-direction: row;
   align-items: center;
   gap: 20%;
+  border-bottom: #b0b8c8 solid 1px;
 }
 .namelogout h2 {
   margin-bottom: 0;
 }
 .namelogout button {
   color: red;
+  margin-left: auto;
 }
