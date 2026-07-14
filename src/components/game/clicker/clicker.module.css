@@ -152,8 +152,11 @@
 
 .button button {
   width: 100%;
-  padding: 14px 20px;
-  font-size: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 12px 20px;
   letter-spacing: 1px;
   border-radius: 12px;
 }
@@ -168,4 +171,36 @@
   box-shadow: none;
   cursor: not-allowed;
   transform: none;
+}
+
+/* 1re ligne du bouton : le libellé */
+.btnLabel {
+  font-size: 0.8rem;
+  opacity: 0.85;
+}
+
+/* 2e ligne : le prix, mis en avant */
+.btnPrice {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #ffa500;
+  font-variant-numeric: tabular-nums;
+}
+
+.button button:disabled .btnPrice {
+  color: #7a8699;
+}
+
+/* l'objectif suivant, sous le bouton */
+.nextHint {
+  margin: 12px 0 0 0;
+  text-align: center;
+  font-size: 0.75rem;
+  color: #7a8699;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.nextHint strong {
+  color: #b0b8c8;
 }

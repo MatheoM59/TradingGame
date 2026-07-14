@@ -19,6 +19,27 @@ export default function Game() {
   const [pending, setPending] = useState(0);
   const [clickValue, setClickValue] = useState(0);
   const pendingRef = useRef(0);
+  const [buyable, setBuyable] = useState(null);
+  const [next, setNext] = useState(null);
+
+  useEffect(() => {
+    const displayNextLvl = async () => {
+      try {
+        const response = await fetch("/api/clicker/get", {
+          method: "POST",
+        });
+        const data = await response.json();
+        if (response.ok) {
+          console.log("level fetch");
+          setBuyable(data.buyable);
+          setNext(data.next);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    displayNextLvl();
+  }, []);
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -82,6 +103,8 @@ export default function Game() {
           pending={pending}
           setPending={setPending}
           clickValue={clickValue}
+          buyable={buyable}
+          next={next}
         />
       )}
       {where === "Investing" && (
