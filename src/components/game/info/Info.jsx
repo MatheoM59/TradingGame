@@ -33,6 +33,9 @@ export const Info = ({ username, balance, totalEarnings, totalExpense }) => {
       <div>
         <p>Balance : $ {balance.toFixed(2)}</p>
       </div>
+      <div className={styles.production}>
+        <h1>ALREADY IN DEVELOPMENT</h1>
+      </div>
     </div>
   );
 };

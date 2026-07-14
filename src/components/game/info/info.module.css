@@ -62,3 +62,10 @@
   color: red;
   margin-left: auto;
 }
+
+.production {
+  border: #ffa500 solid 1px !important;
+  border-radius: 25px !important;
+  background-color: #ffa500 !important;
+  color: red !important;
+}
